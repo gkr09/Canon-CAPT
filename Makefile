@@ -130,13 +130,11 @@ install-capt:
 	install -c -m 644 $(CAPT_DIR)/*capt*.txt /usr/share/doc/capt-src
 
 	install -dm755 /usr/share/ppd/cupsfilters
-	ln -sf /usr/share/cups/model/CNCUPS$(MODEL)CAPTK.ppd /usr/share/ppd/cupsfilters/CNCUPS$(MODEL)CAPTK.ppd
-	#cd /usr/share/cups/model &&
-	#for file in /usr/share/cups/model/*.ppd; do \
-	##for file in $(CUPS_DIR)/*; do \
-	##	echo "$$file"; \
-		#ln -sf $(notdir "$$file") /usr/share/ppd/cupsfilters/$(notdir "$$file"); \
-	##done
+	#ln -sf /usr/share/cups/model/CNCUPS$(MODEL)CAPTK.ppd /usr/share/ppd/cupsfilters/CNCUPS$(MODEL)CAPTK.ppd
+	cd /usr/share/cups/model && \
+	for file in *.ppd; do \
+		ln -sf $(notdir "$$file") /usr/share/ppd/cupsfilters/$(notdir "$$file"); \
+	done
 	install -dm750 -o root -g lp /var/captmon/
 	mkdir -p /usr/lib32/i386-linux-gnu/
 	install -m755 ${CURDIR}/others/libpopt.so.0.0.0 /usr/lib32/
