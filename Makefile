@@ -1,6 +1,7 @@
 CAPT_DIR ?= ${CURDIR}/cndrvcups-capt-2.71
 COMMON_DIR ?= ${CURDIR}/cndrvcups-common-3.21
 CUPS_DIR ?= /usr/share/cups/model
+DESTDIR ?=
 MODEL ?=
 $(warning ***Canon CAPT Printer Drivers***)
 gen:
@@ -29,117 +30,117 @@ capt:
 install-common:
 	echo 'Installing cndrvcups-common'
 	for dir in buftool cngplp backend; do \
-		cd $(COMMON_DIR)/"$$dir" && make install; \
+		cd $(COMMON_DIR)/"$$dir" && make DESTDIR=$(DESTDIR) install; \
 	done
-	cd $(COMMON_DIR)/c3plmod_ipc && make install LIBDIR=/usr/lib
+	cd $(COMMON_DIR)/c3plmod_ipc && make install DESTDIR=$(DESTDIR) LIBDIR=/usr/lib
 	#cd $(COMMON_DIR)
-	install -dm755 /usr/bin
-	install -c -m 755 $(COMMON_DIR)/libs/c3pldrv /usr/bin
-	install -dm755 /usr/lib
-	install -c -m 755 $(COMMON_DIR)/libs/libcaiowrap.so.1.0.0 /usr/lib
-	install -c -m 755 $(COMMON_DIR)/libs/libcaiousb.so.1.0.0 /usr/lib
-	install -c -m 755 $(COMMON_DIR)/libs/libc3pl.so.0.0.1 /usr/lib
-	install -c -m 755 $(COMMON_DIR)/libs/libcaepcm.so.1.0 /usr/lib
-	install -c -m 755 $(COMMON_DIR)/libs/libColorGear.so.0.0.0 /usr/lib
-	install -c -m 755 $(COMMON_DIR)/libs/libColorGearC.so.0.0.0 /usr/lib
-	install -c -m 755 $(COMMON_DIR)/libs/libcanon_slim.so.1.0.0 /usr/lib
-	install -c -m 755 $(COMMON_DIR)/libs/libcaepcm.so /usr/lib32
-	install -c -m 755 $(COMMON_DIR)/libs/libcaepcm.so.1 /usr/lib32
-	install -c -m 755 $(COMMON_DIR)/libs/libcaepcm.so.1.0 /usr/lib32
-	install -c -m 755 $(COMMON_DIR)/libs/libcaiowrap.so /usr/lib32
-	install -c -m 755 $(COMMON_DIR)/libs/libcaiowrap.so.1 /usr/lib32
-	install -c -m 755 $(COMMON_DIR)/libs/libcaiowrap.so.1.0.0 /usr/lib32
-	install -c -m 755 $(COMMON_DIR)/libs/libcanon_slim.so.1.0.0 /usr/lib32
+	install -dm755 $(DESTDIR)/usr/bin
+	install -c -m 755 $(COMMON_DIR)/libs/c3pldrv $(DESTDIR)/usr/bin
+	install -dm755 $(DESTDIR)/usr/lib
+	install -c -m 755 $(COMMON_DIR)/libs/libcaiowrap.so.1.0.0 $(DESTDIR)/usr/lib
+	install -c -m 755 $(COMMON_DIR)/libs/libcaiousb.so.1.0.0 $(DESTDIR)/usr/lib
+	install -c -m 755 $(COMMON_DIR)/libs/libc3pl.so.0.0.1 $(DESTDIR)/usr/lib
+	install -c -m 755 $(COMMON_DIR)/libs/libcaepcm.so.1.0 $(DESTDIR)/usr/lib
+	install -c -m 755 $(COMMON_DIR)/libs/libColorGear.so.0.0.0 $(DESTDIR)/usr/lib
+	install -c -m 755 $(COMMON_DIR)/libs/libColorGearC.so.0.0.0 $(DESTDIR)/usr/lib
+	install -c -m 755 $(COMMON_DIR)/libs/libcanon_slim.so.1.0.0 $(DESTDIR)/usr/lib
+	install -c -m 755 $(COMMON_DIR)/libs/libcaepcm.so $(DESTDIR)/usr/lib32
+	install -c -m 755 $(COMMON_DIR)/libs/libcaepcm.so.1 $(DESTDIR)/usr/lib32
+	install -c -m 755 $(COMMON_DIR)/libs/libcaepcm.so.1.0 $(DESTDIR)/usr/lib32
+	install -c -m 755 $(COMMON_DIR)/libs/libcaiowrap.so $(DESTDIR)/usr/lib32
+	install -c -m 755 $(COMMON_DIR)/libs/libcaiowrap.so.1 $(DESTDIR)/usr/lib32
+	install -c -m 755 $(COMMON_DIR)/libs/libcaiowrap.so.1.0.0 $(DESTDIR)/usr/lib32
+	install -c -m 755 $(COMMON_DIR)/libs/libcanon_slim.so.1.0.0 $(DESTDIR)/usr/lib32
 
 	echo 'Creating symlinks'
 	#cd /usr/lib/ &&
-	ln -sf /usr/lib/libc3pl.so.0.0.1 /usr/lib/libc3pl.so.0
-	ln -sf /usr/lib/libc3pl.so.0.0.1 /usr/lib/libc3pl.so
-	ln -sf /usr/lib/libcaepcm.so.1.0 /usr/lib/libcaepcm.so.1
-	ln -sf /usr/lib/libcaepcm.so.1.0 /usr/lib/libcaepcm.so
-	ln -sf /usr/lib/libcaiowrap.so.1.0.0 /usr/lib/libcaiowrap.so.1
-	ln -sf /usr/lib/libcaiowrap.so.1.0.0 /usr/lib/libcaiowrap.so
-	ln -sf /usr/lib/libcaiousb.so.1.0.0 /usr/lib/libcaiousb.so.1
-	ln -sf /usr/lib/libcaiousb.so.1.0.0 /usr/lib/libcaiousb.so
-	ln -sf /usr/lib/libcanonc3pl.so.1.0.0 /usr/lib/libcanonc3pl.so.1
-	ln -sf /usr/lib/libcanonc3pl.so.1.0.0 /usr/lib/libcanonc3pl.so
-	ln -sf /usr/lib/libcanon_slim.so.1.0.0 /usr/lib/libcanon_slim.so.1
-	ln -sf /usr/lib/libcanon_slim.so.1.0.0 /usr/lib/libcanon_slim.so
-	ln -sf /usr/lib/libColorGear.so.0.0.0 /usr/lib/libColorGear.so.0
-	ln -sf /usr/lib/libColorGear.so.0.0.0 /usr/lib/libColorGear.so
-	ln -sf /usr/lib/libColorGearC.so.0.0.0 /usr/lib/libColorGearC.so.0
-	ln -sf /usr/lib/libColorGearC.so.0.0.0 /usr/lib/libColorGearC.so
+	ln -sf $(DESTDIR)/usr/lib/libc3pl.so.0.0.1 $(DESTDIR)/usr/lib/libc3pl.so.0
+	ln -sf $(DESTDIR)/usr/lib/libc3pl.so.0.0.1 $(DESTDIR)/usr/lib/libc3pl.so
+	ln -sf $(DESTDIR)/usr/lib/libcaepcm.so.1.0 $(DESTDIR)/usr/lib/libcaepcm.so.1
+	ln -sf $(DESTDIR)/usr/lib/libcaepcm.so.1.0 $(DESTDIR)/usr/lib/libcaepcm.so
+	ln -sf $(DESTDIR)/usr/lib/libcaiowrap.so.1.0.0 $(DESTDIR)/usr/lib/libcaiowrap.so.1
+	ln -sf $(DESTDIR)/usr/lib/libcaiowrap.so.1.0.0 $(DESTDIR)/usr/lib/libcaiowrap.so
+	ln -sf $(DESTDIR)/usr/lib/libcaiousb.so.1.0.0 $(DESTDIR)/usr/lib/libcaiousb.so.1
+	ln -sf $(DESTDIR)/usr/lib/libcaiousb.so.1.0.0 $(DESTDIR)/usr/lib/libcaiousb.so
+	ln -sf $(DESTDIR)/usr/lib/libcanonc3pl.so.1.0.0 $(DESTDIR)/usr/lib/libcanonc3pl.so.1
+	ln -sf $(DESTDIR)/usr/lib/libcanonc3pl.so.1.0.0 $(DESTDIR)/usr/lib/libcanonc3pl.so
+	ln -sf $(DESTDIR)/usr/lib/libcanon_slim.so.1.0.0 $(DESTDIR)/usr/lib/libcanon_slim.so.1
+	ln -sf $(DESTDIR)/usr/lib/libcanon_slim.so.1.0.0 $(DESTDIR)/usr/lib/libcanon_slim.so
+	ln -sf $(DESTDIR)/usr/lib/libColorGear.so.0.0.0 $(DESTDIR)/usr/lib/libColorGear.so.0
+	ln -sf $(DESTDIR)/usr/lib/libColorGear.so.0.0.0 $(DESTDIR)/usr/lib/libColorGear.so
+	ln -sf $(DESTDIR)/usr/lib/libColorGearC.so.0.0.0 $(DESTDIR)/usr/lib/libColorGearC.so.0
+	ln -sf $(DESTDIR)/usr/lib/libColorGearC.so.0.0.0 $(DESTDIR)/usr/lib/libColorGearC.so
 
-	install -dm755 /usr/share/caepcm
+	install -dm755 $(DESTDIR)/usr/share/caepcm
 
-	cd $(COMMON_DIR) && install -c -m 644 data/*.ICC  /usr/share/caepcm
+	cd $(COMMON_DIR) && install -c -m 644 data/*.ICC  $(DESTDIR)/usr/share/caepcm
 install-capt:
 	echo 'Installing cndrvcups-capt'
 	#statusui omitted from below
 	for dir in driver ppd backend pstocapt pstocapt2 pstocapt3 cngplp; do \
-		cd $(CAPT_DIR)/"$$dir" && make install; \
+		cd $(CAPT_DIR)/"$$dir" && make DESTDIR=$(DESTDIR) install; \
 	done
 	#cd $(CAPT_DIR)/ &&
-	install -dm755 /usr/lib
-	install -c $(CAPT_DIR)/libs/libcaptfilter.so.1.0.0  /usr/lib
-	install -c $(CAPT_DIR)/libs/libcaiocaptnet.so.1.0.0 /usr/lib
-	install -c $(CAPT_DIR)/libs/libcncaptnpm.so.2.0.1   /usr/lib
-	install -c -m 755 $(CAPT_DIR)/libs/libcnaccm.so.1.0   /usr/lib
+	install -dm755 $(DESTDIR)/usr/lib
+	install -c $(CAPT_DIR)/libs/libcaptfilter.so.1.0.0  $(DESTDIR)/usr/lib
+	install -c $(CAPT_DIR)/libs/libcaiocaptnet.so.1.0.0 $(DESTDIR)/usr/lib
+	install -c $(CAPT_DIR)/libs/libcncaptnpm.so.2.0.1   $(DESTDIR)/usr/lib
+	install -c -m 755 $(CAPT_DIR)/libs/libcnaccm.so.1.0   $(DESTDIR)/usr/lib
 
 	#cd /usr/lib/ &&
-	ln -sf /usr/lib/libcaptfilter.so.1.0.0 /usr/lib/libcaptfilter.so.1
-	ln -sf /usr/lib/libcaptfilter.so.1.0.0 /usr/lib/libcaptfilter.so
-	ln -sf /usr/lib/libcaiocaptnet.so.1.0.0 /usr/lib/libcaiocaptnet.so.1
-	ln -sf /usr/lib/libcaiocaptnet.so.1.0.0 /usr/lib/libcaiocaptnet.so
-	ln -sf /usr/lib/libcncaptnpm.so.2.0.1 /usr/lib/libcncaptnpm.so.2
-	ln -sf /usr/lib/libcncaptnpm.so.2.0.1 /usr/lib/libcncaptnpm.so
-	ln -sf /usr/lib/libcnaccm.so.1.0 /usr/lib/libcnaccm.so.1
-	ln -sf /usr/lib/libcnaccm.so.1.0 /usr/lib/libcnaccm.so
+	ln -sf $(DESTDIR)/usr/lib/libcaptfilter.so.1.0.0 $(DESTDIR)/usr/lib/libcaptfilter.so.1
+	ln -sf $(DESTDIR)/usr/lib/libcaptfilter.so.1.0.0 $(DESTDIR)/usr/lib/libcaptfilter.so
+	ln -sf $(DESTDIR)/usr/lib/libcaiocaptnet.so.1.0.0 $(DESTDIR)/usr/lib/libcaiocaptnet.so.1
+	ln -sf $(DESTDIR)/usr/lib/libcaiocaptnet.so.1.0.0 $(DESTDIR)/usr/lib/libcaiocaptnet.so
+	ln -sf $(DESTDIR)/usr/lib/libcncaptnpm.so.2.0.1 $(DESTDIR)/usr/lib/libcncaptnpm.so.2
+	ln -sf $(DESTDIR)/usr/lib/libcncaptnpm.so.2.0.1 $(DESTDIR)/usr/lib/libcncaptnpm.so
+	ln -sf $(DESTDIR)/usr/lib/libcnaccm.so.1.0 $(DESTDIR)/usr/lib/libcnaccm.so.1
+	ln -sf $(DESTDIR)/usr/lib/libcnaccm.so.1.0 $(DESTDIR)/usr/lib/libcnaccm.so
 
-	install -dm755 /usr/bin
+	install -dm755 $(DESTDIR)/usr/bin
 
 	#cd $(CAPT_DIR)/ &&
-	install -c $(CAPT_DIR)/libs/captdrv                 /usr/bin
-	install -c $(CAPT_DIR)/libs/captfilter              /usr/bin
-	install -c $(CAPT_DIR)/libs/captmon/captmon         /usr/bin
-	install -c $(CAPT_DIR)/libs/captmon2/captmon2       /usr/bin
-	install -c $(CAPT_DIR)/libs/captemon/captmon*       /usr/bin
-	install -c $(CAPT_DIR)/libs64/ccpd                  /usr/sbin
-	install -c $(CAPT_DIR)/libs64/ccpdadmin             /usr/sbin
+	install -c $(CAPT_DIR)/libs/captdrv                 $(DESTDIR)/usr/bin
+	install -c $(CAPT_DIR)/libs/captfilter              $(DESTDIR)/usr/bin
+	install -c $(CAPT_DIR)/libs/captmon/captmon         $(DESTDIR)/usr/bin
+	install -c $(CAPT_DIR)/libs/captmon2/captmon2       $(DESTDIR)/usr/bin
+	install -c $(CAPT_DIR)/libs/captemon/captmon*       $(DESTDIR)/usr/bin
+	install -c $(CAPT_DIR)/libs64/ccpd                  $(DESTDIR)/usr/sbin
+	install -c $(CAPT_DIR)/libs64/ccpdadmin             $(DESTDIR)/usr/sbin
 
-	install -dm755 /etc
-	install -c $(CAPT_DIR)/samples/ccpd.conf            /etc
-	install -c $(CAPT_DIR)/samples/ccpd            /etc/init.d
-	install -dm755 /usr/share/ccpd
-	install -dm755 /usr/share/captfilter
-	install -c $(CAPT_DIR)/libs/ccpddata/CNA*L.BIN    /usr/share/ccpd
-	install -c $(CAPT_DIR)/libs/ccpddata/CNA*LS.BIN    /usr/share/ccpd
-	install -c $(CAPT_DIR)/libs/ccpddata/cnab6cl.bin    /usr/share/ccpd
-	install -c $(CAPT_DIR)/libs/CnA*INK.DAT ${pkgdir}/usr/share/captfilter
-	install -c $(CAPT_DIR)/libs/captemon/CNAC*.BIN    /usr/share/ccpd
-	install -dm755 /usr/share/captmon
-	install -c $(CAPT_DIR)/libs/captmon/msgtable.xml    /usr/share/captmon
-	install -dm755 /usr/share/captmon2
-	install -c $(CAPT_DIR)/libs/captmon2/msgtable2.xml  /usr/share/captmon2
-	install -dm755 /usr/share/captemon
-	install -c $(CAPT_DIR)/libs/captemon/msgtablelbp*   /usr/share/captemon
-	install -c $(CAPT_DIR)/libs/captemon/msgtablecn*    /usr/share/captemon
-	install -dm755 /usr/share/caepcm
-	install -c -m 644 $(CAPT_DIR)/data/C*   /usr/share/caepcm
-	install -dm755 /usr/share/doc/capt-src
-	install -c -m 644 $(CAPT_DIR)/*capt*.txt /usr/share/doc/capt-src
+	install -dm755 $(DESTDIR)/etc
+	install -c $(CAPT_DIR)/samples/ccpd.conf            $(DESTDIR)/etc
+	install -c $(CAPT_DIR)/samples/ccpd            $(DESTDIR)/etc/init.d
+	install -dm755 $(DESTDIR)/usr/share/ccpd
+	install -dm755 $(DESTDIR)/usr/share/captfilter
+	install -c $(CAPT_DIR)/libs/ccpddata/CNA*L.BIN    $(DESTDIR)/usr/share/ccpd
+	install -c $(CAPT_DIR)/libs/ccpddata/CNA*LS.BIN    $(DESTDIR)/usr/share/ccpd
+	install -c $(CAPT_DIR)/libs/ccpddata/cnab6cl.bin    $(DESTDIR)/usr/share/ccpd
+	install -c $(CAPT_DIR)/libs/CnA*INK.DAT $(DESTDIR)/usr/share/captfilter
+	install -c $(CAPT_DIR)/libs/captemon/CNAC*.BIN    $(DESTDIR)/usr/share/ccpd
+	install -dm755 $(DESTDIR)/usr/share/captmon
+	install -c $(CAPT_DIR)/libs/captmon/msgtable.xml    $(DESTDIR)/usr/share/captmon
+	install -dm755 $(DESTDIR)/usr/share/captmon2
+	install -c $(CAPT_DIR)/libs/captmon2/msgtable2.xml  $(DESTDIR)/usr/share/captmon2
+	install -dm755 $(DESTDIR)/usr/share/captemon
+	install -c $(CAPT_DIR)/libs/captemon/msgtablelbp*   $(DESTDIR)/usr/share/captemon
+	install -c $(CAPT_DIR)/libs/captemon/msgtablecn*    $(DESTDIR)/usr/share/captemon
+	install -dm755 $(DESTDIR)/usr/share/caepcm
+	install -c -m 644 $(CAPT_DIR)/data/C*   $(DESTDIR)/usr/share/caepcm
+	install -dm755 $(DESTDIR)/usr/share/doc/capt-src
+	install -c -m 644 $(CAPT_DIR)/*capt*.txt $(DESTDIR)/usr/share/doc/capt-src
 
-	install -dm755 /usr/share/ppd/cupsfilters
+	install -dm755 $(DESTDIR)/usr/share/ppd/cupsfilters
 	#ln -sf /usr/share/cups/model/CNCUPS$(MODEL)CAPTK.ppd /usr/share/ppd/cupsfilters/CNCUPS$(MODEL)CAPTK.ppd
-	cd /usr/share/cups/model && \
+	cd $(DESTDIR)/usr/share/cups/model && \
 	for file in *.ppd; do \
-		ln -sf $(notdir "$$file") /usr/share/ppd/cupsfilters/$(notdir "$$file"); \
+		ln -sf $(notdir "$$file") $(DESTDIR)/usr/share/ppd/cupsfilters/$(notdir "$$file"); \
 	done
-	install -dm750 -o root -g lp /var/captmon/
-	mkdir -p /usr/lib32/i386-linux-gnu/
-	install -m755 ${CURDIR}/others/libpopt.so.0.0.0 /usr/lib32/
-	install -m755 ${CURDIR}/others/libpopt.so.0 /usr/lib32/
-	install -m755 ${CURDIR}/others/captstatusui /usr/bin/
+	install -dm750 -o root -g lp $(DESTDIR)/var/captmon/
+	mkdir -p $(DESTDIR)/usr/lib32/i386-linux-gnu/
+	install -m755 ${CURDIR}/others/libpopt.so.0.0.0 $(DESTDIR)/usr/lib32/
+	install -m755 ${CURDIR}/others/libpopt.so.0 $(DESTDIR)/usr/lib32/
+	install -m755 ${CURDIR}/others/captstatusui $(DESTDIR)/usr/bin/
 
 install:gen common install-common capt install-capt
 	echo 'FINISHED INSTALLING'
