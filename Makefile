@@ -26,7 +26,7 @@ common:
 capt:
 	cd $(CAPT_DIR) && make
 
-install:
+install-common:
 	echo 'Installing cndrvcups-common'
 	for dir in buftool cngplp backend; do \
 		cd $(COMMON_DIR)/"$$dir" && make install; \
@@ -140,7 +140,6 @@ install-capt:
 	install -m755 ${CURDIR}/others/libpopt.so.0.0.0 /usr/lib32/
 	install -m755 ${CURDIR}/others/libpopt.so.0 /usr/lib32/
 	install -m755 ${CURDIR}/others/captstatusui /usr/bin/
-	echo 'FINISHED INSTALLING'
 
-all:gen common install capt install-capt
-	echo 'WORKED'
+all:gen common install-common capt install-capt
+	echo 'FINISHED INSTALLING'
