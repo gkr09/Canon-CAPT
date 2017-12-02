@@ -4,13 +4,13 @@ CUPS_DIR ?= /usr/share/cups/model
 DESTDIR ?=
 MODEL ?=
 $(warning ***Canon CAPT Printer Drivers***)
-.ONESHELL:
-gen:
+gen-common:
 	$(info **Configuring cndrvcups-common**)
 	cd $(COMMON_DIR)/buftool && /usr/bin/autoreconf -fi && ./autogen.sh --prefix=/usr --libdir=/usr/lib
 	cd $(COMMON_DIR)/cngplp && /usr/bin/autoreconf -fi && LIBS='-lgmodule-2.0 -lgtk-x11-2.0 -lglib-2.0 -lgobject-2.0' ./autogen.sh --prefix=/usr --libdir=/usr/lib
 	cd $(COMMON_DIR)/backend && /usr/bin/autoreconf -fi && ./autogen.sh --prefix=/usr --libdir=/usr/lib
 
+gen-capt:
 	$(info **Configuring cndrvcups-capt**)
 	for dir in driver ppd backend pstocapt pstocapt2 pstocapt3; do \
 		cd $(CAPT_DIR)/"$$dir" && /usr/bin/autoreconf -fi && LDFLAGS=-L/usr/lib CPPFLAGS=-I/usr/include ./autogen.sh --prefix=/usr --enable-progpath=/usr/bin --disable-static ; \
@@ -29,7 +29,7 @@ common:
 	#cd $(COMMON_DIR)/c3plmod_ipc && make
 capt:
 	#cd $(CAPT_DIR) && make
-	+make -C $(CAPT_DIR)
+	make -C $(CAPT_DIR)
 
 install-common:
 	echo 'Installing cndrvcups-common'
@@ -146,5 +146,6 @@ install-capt:
 	install -m755 ${CURDIR}/others/libpopt.so.0 $(DESTDIR)/usr/lib32/
 	install -m755 ${CURDIR}/others/captstatusui $(DESTDIR)/usr/bin/
 
-install: | gen common install-common capt install-capt
+.ONESHELL:
+install: | gen-common common install-common gen-capt capt install-capt
 	echo 'FINISHED INSTALLING'
