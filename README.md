@@ -57,3 +57,5 @@ captstatusui window shows __No specified printer__ :
              1. Try reinstalling the printer again ,see above
              2. Try restarting your Computer.
              3. Restart the cups daemon and the ccp daemon (ccpd), see above
+
+#### -Gopikrishnan R (github.com/gkr09)
