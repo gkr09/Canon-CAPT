@@ -9,6 +9,8 @@ gen-common:
 	cd $(COMMON_DIR)/buftool && /usr/bin/autoreconf -fi && ./autogen.sh --prefix=/usr --libdir=/usr/lib
 	cd $(COMMON_DIR)/cngplp && /usr/bin/autoreconf -fi && LIBS='-lgmodule-2.0 -lgtk-x11-2.0 -lglib-2.0 -lgobject-2.0' ./autogen.sh --prefix=/usr --libdir=/usr/lib
 	cd $(COMMON_DIR)/backend && /usr/bin/autoreconf -fi && ./autogen.sh --prefix=/usr --libdir=/usr/lib
+	install -dm755 $(DESTDIR)/usr/lib32
+	install -dm755 $(DESTDIR)/usr/sbin
 
 gen-capt:install-common
 	$(info **Configuring cndrvcups-capt**)
@@ -141,7 +143,7 @@ install-capt: capt
 		ln -sf $(notdir "$$file") $(DESTDIR)/usr/share/ppd/cupsfilters/$(notdir "$$file"); \
 	done
 	install -dm750 -o root -g lp $(DESTDIR)/var/captmon/
-	mkdir -p $(DESTDIR)/usr/lib32/i386-linux-gnu/
+	mkdir -p $(DESTDIR)/usr/lib32
 	install -m755 ${CURDIR}/others/libpopt.so.0.0.0 $(DESTDIR)/usr/lib32/
 	install -m755 ${CURDIR}/others/libpopt.so.0 $(DESTDIR)/usr/lib32/
 	install -m755 ${CURDIR}/others/captstatusui $(DESTDIR)/usr/bin/
