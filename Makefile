@@ -8,7 +8,7 @@ gen:
 	$(info **Configuring cndrvcups-common**)
 	cd $(COMMON_DIR)/buftool && /usr/bin/autoreconf -fi && ./autogen.sh --prefix=/usr --libdir=/usr/lib
 	cd $(COMMON_DIR)/cngplp && /usr/bin/autoreconf -fi && LIBS='-lgmodule-2.0 -lgtk-x11-2.0 -lglib-2.0 -lgobject-2.0' ./autogen.sh --prefix=/usr --libdir=/usr/lib
-	cd ${COMMON_DIR}/backend && /usr/bin/autoreconf -fi && ./autogen.sh --prefix=/usr --libdir=/usr/lib
+	cd $(COMMON_DIR)/backend && /usr/bin/autoreconf -fi && ./autogen.sh --prefix=/usr --libdir=/usr/lib
 
 	$(info **Configuring cndrvcups-capt**)
 	for dir in driver ppd backend pstocapt pstocapt2 pstocapt3; do \
