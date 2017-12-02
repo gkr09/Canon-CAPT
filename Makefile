@@ -10,7 +10,7 @@ gen-common:
 	cd $(COMMON_DIR)/cngplp && /usr/bin/autoreconf -fi && LIBS='-lgmodule-2.0 -lgtk-x11-2.0 -lglib-2.0 -lgobject-2.0' ./autogen.sh --prefix=/usr --libdir=/usr/lib
 	cd $(COMMON_DIR)/backend && /usr/bin/autoreconf -fi && ./autogen.sh --prefix=/usr --libdir=/usr/lib
 
-gen-capt:
+gen-capt:install-common
 	$(info **Configuring cndrvcups-capt**)
 	for dir in driver ppd backend pstocapt pstocapt2 pstocapt3; do \
 		cd $(CAPT_DIR)/"$$dir" && /usr/bin/autoreconf -fi && LDFLAGS=-L/usr/lib CPPFLAGS=-I/usr/include ./autogen.sh --prefix=/usr --enable-progpath=/usr/bin --disable-static ; \
@@ -20,18 +20,18 @@ gen-capt:
 	cd $(CAPT_DIR)/cngplp/files && LDFLAGS=-L/usr/lib /usr/bin/autoreconf -fi && LDFLAGS=-L/usr/lib CPPFLAGS=-I/usr/include ./autogen.sh
 
 
-common:
+common: gen-common
 	echo "BUILDING"
 	$(info **Compiling cndrvcups-common**)
 	#cd $(COMMON_DIR) && make
 	make -C $(COMMON_DIR)
 	make -C $(COMMON_DIR)/c3plmod_ipc
 	#cd $(COMMON_DIR)/c3plmod_ipc && make
-capt:
+capt: gen-capt
 	#cd $(CAPT_DIR) && make
 	make -C $(CAPT_DIR)
 
-install-common:
+install-common: common
 	echo 'Installing cndrvcups-common'
 	for dir in buftool cngplp backend; do \
 		cd $(COMMON_DIR)/"$$dir" && make DESTDIR=$(DESTDIR) install; \
@@ -78,7 +78,7 @@ install-common:
 	install -dm755 $(DESTDIR)/usr/share/caepcm
 
 	cd $(COMMON_DIR) && install -c -m 644 data/*.ICC  $(DESTDIR)/usr/share/caepcm
-install-capt:
+install-capt: capt
 	echo 'Installing cndrvcups-capt'
 	#statusui omitted from below
 	for dir in driver ppd backend pstocapt pstocapt2 pstocapt3 cngplp; do \
@@ -147,5 +147,5 @@ install-capt:
 	install -m755 ${CURDIR}/others/captstatusui $(DESTDIR)/usr/bin/
 
 .ONESHELL:
-install: | gen-common common install-common gen-capt capt install-capt
+install: | install-capt
 	echo 'FINISHED INSTALLING'
