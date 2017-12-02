@@ -4,6 +4,7 @@ CUPS_DIR ?= /usr/share/cups/model
 DESTDIR ?=
 MODEL ?=
 $(warning ***Canon CAPT Printer Drivers***)
+.ONESHELL:
 gen:
 	$(info **Configuring cndrvcups-common**)
 	cd $(COMMON_DIR)/buftool && /usr/bin/autoreconf -fi && ./autogen.sh --prefix=/usr --libdir=/usr/lib
