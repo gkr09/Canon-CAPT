@@ -67,7 +67,7 @@
 #include <fcntl.h>
 #include <limits.h>
 
-#include "buftool.h"
+#include <buftool.h>
 
 
 #define	CPRTD_BACKEND_NAME	"ccp"
