@@ -144,6 +144,7 @@ install-capt: capt
 	done
 	install -dm750 -o root -g lp $(DESTDIR)/var/captmon/
 	mkdir -p $(DESTDIR)/usr/lib32
+	chmod 755 $(DESTDIR)/usr/lib32
 	install -m755 ${CURDIR}/others/libpopt.so.0.0.0 $(DESTDIR)/usr/lib32/
 	install -m755 ${CURDIR}/others/libpopt.so.0 $(DESTDIR)/usr/lib32/
 	install -m755 ${CURDIR}/others/captstatusui $(DESTDIR)/usr/bin/
