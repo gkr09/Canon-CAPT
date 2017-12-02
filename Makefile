@@ -145,5 +145,5 @@ install-capt:
 	install -m755 ${CURDIR}/others/libpopt.so.0 $(DESTDIR)/usr/lib32/
 	install -m755 ${CURDIR}/others/captstatusui $(DESTDIR)/usr/bin/
 
-install:gen common install-common capt install-capt
+install: | gen common install-common capt install-capt
 	echo 'FINISHED INSTALLING'
