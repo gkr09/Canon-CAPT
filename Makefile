@@ -12,11 +12,11 @@ gen:
 
 	$(info **Configuring cndrvcups-capt**)
 	for dir in driver ppd backend pstocapt pstocapt2 pstocapt3; do \
-		cd $(CAPT_DIR)/"$$dir" && /usr/bin/autoreconf -fi && LDFLAGS=-L${pkgdir}/usr/lib CPPFLAGS=-I${pkgdir}/usr/include ./autogen.sh --prefix=/usr --enable-progpath=/usr/bin --disable-static ; \
+		cd $(CAPT_DIR)/"$$dir" && /usr/bin/autoreconf -fi && LDFLAGS=-L/usr/lib CPPFLAGS=-I/usr/include ./autogen.sh --prefix=/usr --enable-progpath=/usr/bin --disable-static ; \
 	done
-	cd $(CAPT_DIR)/statusui && /usr/bin/autoreconf -fi && LDFLAGS=-L${pkgdir}/usr/lib LIBS='-lpthread -lgdk-x11-2.0 -lgobject-2.0 -lglib-2.0 -latk-1.0 -lgdk_pixbuf-2.0' CPPFLAGS=-I${pkgdir}/usr/include ./autogen.sh --prefix=/usr --disable-static
-	cd $(CAPT_DIR)/cngplp/ && LDFLAGS=-L${pkgdir}/usr/lib /usr/bin/autoreconf -fi && LDFLAGS=-L${pkgdir}/usr/lib CPPFLAGS=-I${pkgdir}/usr/include ./autogen.sh --prefix=/usr --libdir=/usr/lib
-	cd $(CAPT_DIR)/cngplp/files && LDFLAGS=-L${pkgdir}/usr/lib /usr/bin/autoreconf -fi && LDFLAGS=-L${pkgdir}/usr/lib CPPFLAGS=-I${pkgdir}/usr/include ./autogen.sh
+	cd $(CAPT_DIR)/statusui && /usr/bin/autoreconf -fi && LDFLAGS=-L/usr/lib LIBS='-lpthread -lgdk-x11-2.0 -lgobject-2.0 -lglib-2.0 -latk-1.0 -lgdk_pixbuf-2.0' CPPFLAGS=-I/usr/include ./autogen.sh --prefix=/usr --disable-static
+	cd $(CAPT_DIR)/cngplp/ && LDFLAGS=-L/usr/lib /usr/bin/autoreconf -fi && LDFLAGS=-L/usr/lib CPPFLAGS=-I/usr/include ./autogen.sh --prefix=/usr --libdir=/usr/lib
+	cd $(CAPT_DIR)/cngplp/files && LDFLAGS=-L/usr/lib /usr/bin/autoreconf -fi && LDFLAGS=-L/usr/lib CPPFLAGS=-I/usr/include ./autogen.sh
 
 
 common:
