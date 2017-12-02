@@ -29,7 +29,7 @@ common:
 	#cd $(COMMON_DIR)/c3plmod_ipc && make
 capt:
 	#cd $(CAPT_DIR) && make
-	make -C $(CAPT_DIR)
+	make -C -j2 $(CAPT_DIR)
 
 install-common:
 	echo 'Installing cndrvcups-common'
