@@ -22,10 +22,13 @@ gen:
 common:
 	echo "BUILDING"
 	$(info **Compiling cndrvcups-common**)
-	cd $(COMMON_DIR) && make
-	cd $(COMMON_DIR)/c3plmod_ipc && make
+	#cd $(COMMON_DIR) && make
+	make -C $(COMMON_DIR)
+	make -C $(COMMON_DIR)/c3plmod_ipc
+	#cd $(COMMON_DIR)/c3plmod_ipc && make
 capt:
-	cd $(CAPT_DIR) && make
+	#cd $(CAPT_DIR) && make
+	make -C $(CAPT_DIR)
 
 install-common:
 	echo 'Installing cndrvcups-common'
