@@ -13,7 +13,7 @@ Also included as a binary is the libpopt.so library since I couldn't find the 32
 
 ## Installing CAPT Drivers
 
- Download the __eopkgs__ in the release section. Install them with the --ignore-file-conflicts flag.
+ Download both __eopkgs__ in the release section. Install them with the --ignore-file-conflicts flag.
  →i.e, in the directory containing the package,run __sudo eopkg it --ignore-file-conflicts *.eopkg__
       
 ***OR***
